@@ -97,7 +97,7 @@ def createUser():
         update("userbalance.txt", users)
     start()
 
-def atm(user):
+#def atm(user):
 
 
 
