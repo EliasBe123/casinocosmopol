@@ -1,10 +1,11 @@
 import time
 import os
 
+
 startbalance = 100
 userbalance = {}
 users ={}
-options1 = {"a": "Atm", "c": "Check balance", "r": "Roulette", "b": "Blackjack", "cr": "Crash", "q": "Log out"}
+options1 = {"a": "Atm", "r": "Roulette", "b": "Blackjack", "c": "Crash", "q": "Log out"}
 options2 = {"r": "Try again", "q": "Quit"}
 optionsstart = {"login": "Login", "create": "Create user"}
 optionsatm = {"withdraw": "Withdraw", "deposit": "Deposit"}
@@ -98,7 +99,6 @@ def createUser():
     start()
 
 #def atm(user):
-
 
 
 
