@@ -110,7 +110,7 @@ def createUser():
     start()
 
 
-def atm(currentuser = []):
+def atm(currentuser):
         choice = menu("ATM", "Choice", optionsatm)
         if choice == "withdraw":
             f = open("userbalance.txt", "r")
@@ -118,7 +118,7 @@ def atm(currentuser = []):
             contents = f.readline().split()
             f.close()
             for word in contents:
-                if word == currentuser[0]:
+                if word == currentuser:
                     contents[contents.index(word)+1] = str(int(userbalance[word]) + int(amountw))
 
             addToFile(contents, "userbalance.txt", "w")
@@ -128,12 +128,12 @@ def atm(currentuser = []):
             contents = f.readline().split()
             f.close()
             for word in contents:
-                if word == currentuser[0]:
+                if word == currentuser:
                     contents[contents.index(word) + 1] = str(int(userbalance[word]) - int(amountd))
 
             addToFile(contents, "userbalance.txt", "w")
         elif choice == "check":
-            print(f"{userbalance[currentuser[0]]} $")
+            print(f"{userbalance[currentuser]} $")
         elif choice == "r":
             menu("Casino", "Choice", options1)
 
