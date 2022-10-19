@@ -10,14 +10,13 @@ optionsstart = {"login": "Login", "create": "Create user"}
 optionsatm = {"withdraw": "Withdraw", "deposit": "Deposit", "check": "Check balance", "r": "Return"}
 currentuser = ["element 0"]
 tempinfo = []
-
 # startar allting
 
 def start():
     update("userinfo.txt", users)
     update("userbalance.txt", userbalance)
     if menu("Startmenu", "Choose", optionsstart) == "login":
-        login(users)
+        login(users, False)
     else:
         createUser()
 
@@ -62,23 +61,30 @@ def menu(title, prompt, options):
 
 # login sekvensen, kollar lösenord och användarnamn, kallar på meny om det är rätt
 
-def login(users):
-    user = input("User: ")
-    password = input("Password: ")
-    for n in users:
-        if n == user and users[n] == password:
-            print("Welcome to Casino Cosmopol!")
-            currentuser[0] = user
-            time.sleep(1)
-            choice = menu("Casino", "Choice", options1)
-            if choice == "a":
-                atm(currentuser[0])
-            return n
+def login(users, firstlogin):
+    if firstlogin:
+        choice = menu("Casino", "Choice", options1)
+        if choice == "a":
+            atm(currentuser[0])
+            return None
+
+    else:
+        user = input("User: ")
+        password = input("Password: ")
+        for n in users:
+            if n == user and users[n] == password:
+                print("Welcome to Casino Cosmopol!")
+                currentuser[0] = user
+                time.sleep(1)
+                choice = menu("Casino", "Choice", options1)
+                if choice == "a":
+                    atm(currentuser[0])
+                return n
     while True:
         print()
         choice = menu("Invalid username or password", "Option: ", options2)
         if choice == "r":
-            login(users)
+            login(users, False)
             break
         elif choice == "q":
             return None
@@ -122,6 +128,7 @@ def atm(currentuser):
                     contents[contents.index(word)+1] = str(int(userbalance[word]) + int(amountw))
 
             addToFile(contents, "userbalance.txt", "w")
+            atm(currentuser)
         elif choice == "deposit":
             f = open("userbalance.txt", "r")
             amountd = input("Amount to deposit: ")
@@ -132,10 +139,11 @@ def atm(currentuser):
                     contents[contents.index(word) + 1] = str(int(userbalance[word]) - int(amountd))
 
             addToFile(contents, "userbalance.txt", "w")
+            atm(currentuser)
         elif choice == "check":
             print(f"{userbalance[currentuser]} $")
         elif choice == "r":
-            menu("Casino", "Choice", options1)
+            login(users, True)
 
 
 start()
