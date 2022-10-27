@@ -68,7 +68,8 @@ def login(users, firstlogin):
         if choice == "a":
             atm(currentuser[0])
             return None
-
+        if choice == "f":
+            flip_(currentuser[0])
     else:
         user = input("User: ")
         password = input("Password: ")
@@ -82,25 +83,7 @@ def login(users, firstlogin):
                     atm(currentuser[0])
                     return n
                 if choice == "f":
-                    side = input("Choose side by typing red or black: ")
-                    while True:
-                        bet = input("Choose bet amount: ")
-                        if bet.type() == int:
-
-                            if bet >= userbalance[currentuser[0]]:
-                                print("Bet value too high, try again")
-                            else:
-                                break
-                        else:
-                            print("Not a number, try again")
-                    print(f"Current balance {userbalance[currentuser[0]]} $")
-
-                    if side == "red":
-                        changebalance(user, -bet)
-                        changebalance(user, (bet * flip(1)))
-                    if side == "black":
-                        changebalance(user, -bet)
-                        changebalance(user, (bet * flip(0)))
+                    flip_(currentuser[0])
     while True:
         print()
         choice = menu("Invalid username or password", "Option: ", options2)
@@ -112,6 +95,29 @@ def login(users, firstlogin):
 
 
 # kollar om texten har ett ord i sig
+def flip_(user):
+    side = input("Choose side by typing red or black: ")
+    while True:
+        print(f"Current balance {userbalance[user]} $")
+        bet = int(input("Choose bet amount: "))
+
+        if type(bet) == int:
+            if bet > int(userbalance[user]):
+                print("Bet value too high, try again")
+            else:
+                break
+        else:
+            print("Not a number, try again")
+
+    if side == "red":
+        changebalance(user, -bet)
+        changebalance(user, (bet * flip(1)))
+        login(users, True)
+
+    if side == "black":
+        changebalance(user, -bet)
+        changebalance(user, (bet * flip(0)))
+        login(users, True)
 
 
 def hasWord(word, text):
@@ -142,7 +148,7 @@ def changebalance(user, amount):
     contents = f.readline().split()
     f.close()
     for word in contents:
-        if word == currentuser:
+        if word == user:
             contents[contents.index(word) + 1] = str(int(userbalance[word]) + int(amount))
 
     addToFile(contents, "userbalance.txt", "w")

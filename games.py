@@ -18,7 +18,7 @@ centerY = 500
 
 def flip(a):
     period = 5+int(random()*5)
-    frames = 10000
+    frames = 200
     maxHeight = 5 / 2
     observeHeight = 5
     coinRelativeSize = 1 / 2
@@ -163,7 +163,7 @@ def probVis():
         my_canvas.create_line(x, 999, x, 999 - totSum / calcs * (x / 50 - 1) * 1000 / compare, fill="green")
 
 
-cash = 100
-roulette(25, 3, True)
+#cash = 100
+#roulette(25, 3, True)
 
-root.mainloop()
+#root.mainloop()
