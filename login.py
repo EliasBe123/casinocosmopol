@@ -158,7 +158,7 @@ def crash_(user):
     bet = bet_(user)
     guess = input("Guess the outcome, from 1-100: ")
     while True:
-        if guess > 1 and guess < 100:
+        if 1 < guess < 100:
             changebalance(user, -bet)
             win = crash(bet, guess)
             if win > 0:
