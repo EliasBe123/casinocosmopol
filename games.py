@@ -50,15 +50,16 @@ def flip(a):
                                        centerX + height * sizeC / 6,
                                        centerY + height * (sizeC * 3 / 4 - sizeC * 3 / 4 * rotSinPos), fill="black")
         root.update()
+    root.destroy()
     if period % 2 == a:
         return 2
     else:
         return 0
 
 
-def roulette(bet, slots, guess, colour):
+def roulette(bet, slots, colour):
     spin = 1
-    frames = 100000
+    frames = 400
     startPos = 0
     for x in range(frames):
         my_canvas.delete("all")

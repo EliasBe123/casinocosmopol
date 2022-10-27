@@ -70,6 +70,10 @@ def login(users, firstlogin):
             return None
         if choice == "f":
             flip_(currentuser[0])
+            return None
+        if choice == "r":
+            roulette_(currentuser[0])
+            return None
     else:
         user = input("User: ")
         password = input("Password: ")
@@ -84,6 +88,10 @@ def login(users, firstlogin):
                     return n
                 if choice == "f":
                     flip_(currentuser[0])
+                    return n
+                if choice == "r":
+                    roulette_(currentuser[0])
+                    return n
     while True:
         print()
         choice = menu("Invalid username or password", "Option: ", options2)
@@ -93,10 +101,7 @@ def login(users, firstlogin):
         elif choice == "q":
             return None
 
-
-# kollar om texten har ett ord i sig
-def flip_(user):
-    side = input("Choose side by typing red or black: ")
+def bet_(user):
     while True:
         print(f"Current balance {userbalance[user]} $")
         bet = int(input("Choose bet amount: "))
@@ -105,13 +110,66 @@ def flip_(user):
             if bet > int(userbalance[user]):
                 print("Bet value too high, try again")
             else:
-                break
+                return bet
         else:
             print("Not a number, try again")
 
+def roulette_(user):
+    bet = bet_(user)
+    while True:
+        color = input("What color, black, red or green: ")
+        if color == "red":
+            changebalance(user, -bet)
+            win = roulette(bet, 10, 2)
+
+            if win > 0:
+                print("Congratulations!")
+            else:
+                print("Too bad.")
+            changebalance(user, (bet * win))
+            time.sleep(6)
+            login(users, True)
+        elif color == "black":
+            changebalance(user, -bet)
+            win = roulette(bet, 10, 1)
+
+            if win > 0:
+                print("Congratulations!")
+            else:
+                print("Too bad.")
+            changebalance(user, (bet * win))
+            time.sleep(6)
+            login(users, True)
+        elif color == "green":
+            changebalance(user, -bet)
+            win = roulette(bet, 10, 3)
+
+            if win > 0:
+                print("Congratulations!")
+            else:
+                print("Too bad.")
+            changebalance(user, (bet * win))
+            time.sleep(6)
+            login(users, True)
+        else:
+            print("Try again")
+
+def crash_(user):
+    bet = bet_(user)
+
+def flip_(user):
+    side = input("Choose side by typing red or black: ")
+    bet = bet_(user)
+
     if side == "red":
         changebalance(user, -bet)
-        changebalance(user, (bet * flip(1)))
+        win = flip(1)
+        if win == 2:
+            print("Congratulations!")
+        else:
+            print("Too bad.")
+        changebalance(user, (bet * win))
+        time.sleep(6)
         login(users, True)
 
     if side == "black":
@@ -120,6 +178,7 @@ def flip_(user):
         login(users, True)
 
 
+# kollar om texten har ett ord i sig
 def hasWord(word, text):
     if type(text) == "dict":
         for key in text:
