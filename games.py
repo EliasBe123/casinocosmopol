@@ -16,8 +16,8 @@ centerX = 500
 centerY = 500
 
 
-def flip():
-    period = 20
+def flip(a):
+    period = 5+int(random()*5)
     frames = 10000
     maxHeight = 5 / 2
     observeHeight = 5
@@ -50,12 +50,13 @@ def flip():
                                        centerX + height * sizeC / 6,
                                        centerY + height * (sizeC * 3 / 4 - sizeC * 3 / 4 * rotSinPos), fill="black")
         root.update()
+    if period % 2 == a:
+        return 2
+    else:
+        return 0
 
 
-sizeR = 200
-
-
-def roulette(slots, guess, colour):
+def roulette(bet, slots, guess, colour):
     spin = 1
     frames = 100000
     startPos = 0
@@ -63,7 +64,7 @@ def roulette(slots, guess, colour):
         my_canvas.delete("all")
         xRange = my_canvas.winfo_width()
         slotWidth = xRange/slots
-        for x in range(slots):
+        for x in range(slots+1):
             if x == 0:
                 my_canvas.create_rectangle((x*slotWidth+startPos)%xRange, centerY-slotWidth, ((x+1)*slotWidth+startPos)%xRange,centerY+slotWidth, fill="green")
             elif x % 2 == 1:
@@ -71,8 +72,10 @@ def roulette(slots, guess, colour):
             elif x % 2 == 0:
                 my_canvas.create_rectangle((x*slotWidth+startPos)%xRange, centerY-slotWidth, ((x+1)*slotWidth+startPos)%xRange,centerY+slotWidth, fill="black")
         startPos += spin/frames*my_canvas.winfo_width()
-        print(startPos)
         root.update()
+
+    multiplier = 0
+    return(multiplier)
 
 
 def crash(bet, guess):
@@ -127,6 +130,10 @@ def crash(bet, guess):
 
         root.update()
         time.sleep(1 / 20)
+    if guess>crashTime:
+        return(guess)
+    else:
+        return(0)
 
 
 def probVis():
