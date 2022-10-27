@@ -1,10 +1,11 @@
 import time
 import os
+from games import *
 
 startbalance = 100
 userbalance = {}
 users = {}
-options1 = {"a": "Atm", "r": "Roulette", "b": "Blackjack", "c": "Crash", "q": "Log out"}
+options1 = {"a": "Atm", "r": "Roulette", "f": "Flip", "c": "Crash", "q": "Log out"}
 options2 = {"r": "Try again", "q": "Quit"}
 optionsstart = {"login": "Login", "create": "Create user"}
 optionsatm = {"withdraw": "Withdraw", "deposit": "Deposit", "check": "Check balance", "r": "Return"}
@@ -79,7 +80,27 @@ def login(users, firstlogin):
                 choice = menu("Casino", "Choice", options1)
                 if choice == "a":
                     atm(currentuser[0])
-                return n
+                    return n
+                if choice == "f":
+                    side = input("Choose side by typing red or black: ")
+                    while True:
+                        bet = input("Choose bet amount: ")
+                        if bet.type() == int:
+
+                            if bet >= userbalance[currentuser[0]]:
+                                print("Bet value too high, try again")
+                            else:
+                                break
+                        else:
+                            print("Not a number, try again")
+                    print(f"Current balance {userbalance[currentuser[0]]} $")
+
+                    if side == "red":
+                        changebalance(user, -bet)
+                        changebalance(user, (bet * flip(1)))
+                    if side == "black":
+                        changebalance(user, -bet)
+                        changebalance(user, (bet * flip(0)))
     while True:
         print()
         choice = menu("Invalid username or password", "Option: ", options2)
@@ -116,6 +137,17 @@ def createUser():
     start()
 
 
+def changebalance(user, amount):
+    f = open("userbalance.txt", "r")
+    contents = f.readline().split()
+    f.close()
+    for word in contents:
+        if word == currentuser:
+            contents[contents.index(word) + 1] = str(int(userbalance[word]) + int(amount))
+
+    addToFile(contents, "userbalance.txt", "w")
+
+
 def atm(currentuser):
         choice = menu("ATM", "Choice", optionsatm)
         if choice == "withdraw":
@@ -148,6 +180,3 @@ def atm(currentuser):
 
 start()
 
-# addToFile(["hej", "test"], "userinfo.txt")
-# with open("userinfo.txt", "r") as f:
-# print(f.readline())
