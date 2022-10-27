@@ -156,6 +156,23 @@ def roulette_(user):
 
 def crash_(user):
     bet = bet_(user)
+    guess = input("Guess the outcome, from 1-100: ")
+    while True:
+        if guess > 1 and guess < 100:
+            changebalance(user, -bet)
+            win = crash(bet, guess)
+            if win > 0:
+                print("Congratulations!")
+            else:
+                print("Too bad.")
+            changebalance(user, (bet * win))
+            time.sleep(6)
+            login(users, True)
+        else:
+            print("Either not a value or not in range, try again")
+
+
+
 
 def flip_(user):
     side = input("Choose side by typing red or black: ")

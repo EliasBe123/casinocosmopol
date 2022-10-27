@@ -122,12 +122,12 @@ def crash(bet, guess):
                 my_canvas.create_text(500, 500, text=f'{bet * (guess - 1)} $ win! Keep going!', anchor=tkinter.CENTER,
                                       width="10i", fill="blue")
                 print(f'{bet * (guess - 1)} $ win! Keep going!')
-                return bet * (guess - 1)
+                return guess - 1
             else:
                 my_canvas.create_text(500, 500, text="game over", anchor=tkinter.CENTER, width="10i", fill="blue")
                 root.update()
                 print("Better luck next time!")
-            return -bet
+            return 0
 
         root.update()
         time.sleep(1 / 20)
