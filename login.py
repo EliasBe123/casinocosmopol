@@ -74,6 +74,9 @@ def login(users, firstlogin):
         if choice == "r":
             roulette_(currentuser[0])
             return None
+        if choice == "c":
+            crash_(currentuser[0])
+            return None
     else:
         user = input("User: ")
         password = input("Password: ")
@@ -92,6 +95,9 @@ def login(users, firstlogin):
                 if choice == "r":
                     roulette_(currentuser[0])
                     return n
+                if choice == "c":
+                    crash_(currentuser[0])
+                    return None
     while True:
         print()
         choice = menu("Invalid username or password", "Option: ", options2)
