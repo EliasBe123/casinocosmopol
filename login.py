@@ -5,7 +5,7 @@ from games import *
 startbalance = 100
 userbalance = {}
 users = {}
-options1 = {"a": "Atm", "r": "Roulette", "f": "Flip", "c": "Crash", "q": "Log out"}
+options1 = {"a": "Atm", "r": "Roulette", "f": "Flip", "c": "Crash"}
 options2 = {"r": "Try again", "q": "Quit"}
 optionsstart = {"login": "Login", "create": "Create user"}
 optionsatm = {"withdraw": "Withdraw", "deposit": "Deposit", "check": "Check balance", "r": "Return"}
